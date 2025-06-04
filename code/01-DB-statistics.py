@@ -10,14 +10,11 @@ allowed_atomic_numbers = {
     12, 20                       # Mg, Ca
 }
 
-# Inicializace datasetu v train_4M
-config = {"src": "train_4M"}
+config = {"src": "../data/train_4M"}
 dataset = AseDBDataset(config=config)
 
-# Inicializace sběru dat
 subset_stats = defaultdict(lambda: {"total": 0, "valid": 0, "atom_count_sum": 0})
 
-# procházení celého datasetu a roztřízení podle subsetů
 for i in tqdm(range(len(dataset)), desc="Analyzujeme molekuly"):
     try:
         atoms = dataset.get_atoms(i)
@@ -32,7 +29,6 @@ for i in tqdm(range(len(dataset)), desc="Analyzujeme molekuly"):
     except Exception:
         continue
 
-# Výpis výsledků v tabulce
 print(f"{'Subset':<30} {'Platné molekuly':>15} {'Průměrná velikost':>20} {'Celkem':>10}")
 print("=" * 80)
 
